@@ -40,7 +40,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			m.err = m.CheckAndSave()
 		case "p":
 			m.err = m.CheckAndSave()
-			if m.table.Cursor() < PageSize-1 {
+			if m.table.Cursor() < len(*m.tableRows)-3 {
 				m.table.SetCursor(m.table.Cursor() + 1)
 			}
 		}
