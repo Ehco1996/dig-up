@@ -10,6 +10,10 @@
 
 * 如果本地有 golang 环境，可以通过 `go install github.com/Ehco1996/dig-up/cmd/dig-up@master` 命令安装
 
+## 视频教程
+
+* https://www.bilibili.com/video/BV1nV4y1L7EX/
+
 ## 快速开始
 
 * 打开网页版本的 b 站的 up 主空间，记录 up 主的 uid
