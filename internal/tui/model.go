@@ -42,6 +42,9 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			m.err = m.CheckAndSave()
 			if m.table.Cursor() < len(*m.tableRows)-3 {
 				m.table.SetCursor(m.table.Cursor() + 1)
+			} else {
+				// 自动进入下一页
+				m.err = m.FetchVideoPage(m.currentPage+1, PageSize)
 			}
 		}
 	}

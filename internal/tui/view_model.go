@@ -18,7 +18,7 @@ const (
 
 func (m *model) FetchVideoPage(page, pageSize int) error {
 
-	helpMsg := fmt.Sprintf("n:下一页 | enter:将未观看的视频加入收藏夹(%d) | 按住 p:批量操作本页", m.favID)
+	helpMsg := fmt.Sprintf("n:下一页 | enter:将未观看的视频加入收藏夹(%d) | 按住 p:批量操作", m.favID)
 
 	idC := table.Column{Title: "视频 AVID"}
 	titleC := table.Column{Title: "标题", Width: len(helpMsg)}
