@@ -27,7 +27,7 @@ func runTUI(debug bool, curl string) error {
 		return err
 	}
 
-	if err = m.FetchVideoPage(1, tui.PageSize); err != nil {
+	if err = m.FetchVideoPage(startPage, tui.PageSize); err != nil {
 		return err
 	}
 	p := tea.NewProgram(m)

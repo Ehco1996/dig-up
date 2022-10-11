@@ -21,6 +21,9 @@ func (m model) footerView() string {
 	if m.err != nil {
 		return m.errorView(m.err)
 	}
+	if m.autoCheck {
+		return "正在自动检查所有视频，再次按 o 按键停止"
+	}
 	return "\n"
 }
 

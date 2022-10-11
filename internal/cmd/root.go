@@ -9,6 +9,7 @@ import (
 
 var (
 	curlFilePath string
+	startPage    int
 	upUID        int
 	favID        int
 )
@@ -22,6 +23,9 @@ func init() {
 
 	rootCmd.PersistentFlags().IntVar(&favID, "favorite-id", 0,
 		"收藏夹的 ID")
+
+	rootCmd.PersistentFlags().IntVar(&startPage, "start-page", 1,
+		"开始检查的页数")
 
 }
 

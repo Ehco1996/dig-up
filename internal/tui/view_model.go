@@ -18,7 +18,7 @@ const (
 
 func (m *model) FetchVideoPage(page, pageSize int) error {
 
-	helpMsg := fmt.Sprintf("n:下一页 | enter:将未观看的视频加入收藏夹(%d) | 按住 p:批量操作", m.favID)
+	helpMsg := fmt.Sprintf("n:下一页 | enter:将未观看的视频加入收藏夹(%d) | 长按 p:批量操作 | 按 o 自动操作", m.favID)
 
 	idC := table.Column{Title: "视频 AVID"}
 	titleC := table.Column{Title: "标题", Width: len(helpMsg)}
@@ -108,4 +108,14 @@ func (m *model) CheckAndSave() error {
 		return m.c.AddToFavorite(ctx, aID, m.favID)
 	}
 	return nil
+}
+
+func (m *model) CheckAndMoveCursor() {
+	m.err = m.CheckAndSave()
+	if m.table.Cursor() < len(*m.tableRows)-3 {
+		m.table.SetCursor(m.table.Cursor() + 1)
+	} else {
+		// move to next page
+		m.FetchVideoPage(m.currentPage+1, PageSize)
+	}
 }

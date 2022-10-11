@@ -50,7 +50,7 @@
   在第 5 步存放`.curl` 文件的目录下执行
 
   ```bash
-  ❯ dig-up --curl-path=.curl --favorite-id=1784575284 --up-uid=697166795
+  ❯ dig-up --curl-path=.curl --favorite-id=1784575284 --up-uid=697166795 --start-page=1
   ```
 
   ![Example](./docs/7.png)
@@ -59,6 +59,8 @@
   * 按回车(enter) 可以检查该投稿是否观看过，如果没观看会自动收藏
   * **长按p键** 快速处理所有投稿，并自动翻页
   * 按 n 键，切换到下一页
+  * 按 o 键，开始自动处理所有的视频
+  * start-page 是从第几页开始处理，如果自动批量处理视频的时候，中途断开了，就可以通过这个参数来控制从哪里续上
 
 ## 所有参数
 
@@ -73,7 +75,10 @@ Flags:
       --curl-path string   保存从浏览器里复制的 curl 内容的文件地址 (default ".curl")
       --favorite-id int    收藏夹的 ID
   -h, --help               help for dig-up
+      --start-page int     开始检查的页数 (default 1)
       --up-uid int         喜欢的 up 主的 uid，默认 up 是【徐云流浪中国】 (default 697166795)
+
+收藏夹 ID 不能为空，请加上参数 --favorite-id={你的收藏夹 ID}
 ```
 
 ## 自己编译

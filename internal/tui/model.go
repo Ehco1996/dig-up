@@ -1,6 +1,8 @@
 package tui
 
 import (
+	"time"
+
 	"github.com/Ehco1996/dig-up/pkg/bc"
 	"github.com/charmbracelet/bubbles/table"
 	tea "github.com/charmbracelet/bubbletea"
@@ -10,11 +12,13 @@ type model struct {
 	c   *bc.Client
 	err error
 
-	upUID, favID int
-
+	upUID, favID           int
 	currentPage, totalPage int
-	table                  table.Model
-	tableRows              *[]table.Row
+
+	autoCheck bool
+
+	table     table.Model
+	tableRows *[]table.Row
 }
 
 func InitialModel(curlString string, upUID, favID int) (model, error) {
@@ -39,16 +43,28 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "enter":
 			m.err = m.CheckAndSave()
 		case "p":
-			m.err = m.CheckAndSave()
-			if m.table.Cursor() < len(*m.tableRows)-3 {
-				m.table.SetCursor(m.table.Cursor() + 1)
-			} else {
-				// 自动进入下一页
-				m.err = m.FetchVideoPage(m.currentPage+1, PageSize)
+			m.CheckAndMoveCursor()
+		case "o":
+			m.autoCheck = !m.autoCheck
+			if m.autoCheck {
+				return m, tick()
 			}
+		}
+	case tickMsg:
+		if m.autoCheck {
+			m.CheckAndMoveCursor()
+			return m, tick()
 		}
 	}
 
 	m.table, cmd = m.table.Update(msg)
 	return m, cmd
+}
+
+type tickMsg time.Time
+
+func tick() tea.Cmd {
+	return tea.Tick(time.Second, func(t time.Time) tea.Msg {
+		return tickMsg(t)
+	})
 }
